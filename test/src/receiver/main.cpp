@@ -20,7 +20,7 @@
 
 #include "..\..\..\include\data_structures\message.hpp"
 
-#include "..\..\..\include\atomics\receiverCadmium.hpp"
+#include "..\..\..\include\atomics\receiver_cadmium.hpp"
 
 using namespace std;
 
