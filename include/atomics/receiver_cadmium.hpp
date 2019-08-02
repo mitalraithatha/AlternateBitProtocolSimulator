@@ -60,22 +60,22 @@ class Receiver {
         	state.sending = false;
         }
         // external transition
-        void external_transition(TIME e,\
-        						 typename make_message_bags<input_ports>::type mbs) {
-        							if(get_messages<typename defs::in>(mbs).size()>1) {
-        								assert(false && "one message per time uniti");
-        							}
-        							for(const auto &x : get_messages<typename defs::in>(mbs)) {
-        								state.ack_num = static_cast < int > (x.value);
-        								state.sending = true;
-        							}
+        void external_transition(TIME e,
+        		typename make_message_bags<input_ports>::type mbs) {
+        			if(get_messages<typename defs::in>(mbs).size()>1) {
+        				assert(false && "one message per time uniti");
+        			}
+        			for(const auto &x : get_messages<typename defs::in>(mbs)) {
+        				state.ack_num = static_cast < int > (x.value);
+        				state.sending = true;
+        			}
                            
         }
         // confluence transition
-        void confluence_transition(TIME e, \
-        						   typename make_message_bags<input_ports>::type mbs) {
-        						   	   internal_transition();
-        						   	   external_transition(TIME(), std::move(mbs));
+        void confluence_transition(TIME e,
+        		typename make_message_bags<input_ports>::type mbs) {
+        			internal_transition();
+        			external_transition(TIME(), std::move(mbs));
         }
         // output function
         typename make_message_bags<output_ports>::type output() const {
@@ -96,10 +96,11 @@ class Receiver {
             }
             return next_internal;
         }
-        friend std::ostringstream& operator<<(std::ostringstream& os, \
-        									  const typename Receiver<TIME>::state_type& i) {
-        									  	  os << "ack_num: " << i.ack_num;
-        									  	  return os;
+        friend std::ostringstream& operator<<(
+        		std::ostringstream& os,
+				const typename Receiver<TIME>::state_type& i) {
+        			os << "ack_num: " << i.ack_num;
+        			return os;
         }
 };
   
