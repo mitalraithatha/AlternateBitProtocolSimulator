@@ -39,10 +39,10 @@ class Receiver {
 	using defs=Receiver_defs; // putting definitions in context
 	public:
 		//Parameters to be overwritten when instantiating the atomic model
-		TIME   preparation_time;
+		TIME   PREPARATION_TIME;
 		// default constructor
 		Receiver() noexcept {
-			preparation_time = TIME("00:00:10");
+			PREPARATION_TIME = TIME("00:00:10");
 			state.ack_num = 0;
 			state.sending = false;
 		}
@@ -89,7 +89,7 @@ class Receiver {
         TIME time_advance() const {
         	TIME next_internal;
             if (state.sending) {
-                next_internal = preparation_time;
+                next_internal = PREPARATION_TIME;
             }
             else {
                 next_internal = std::numeric_limits<TIME>::infinity();

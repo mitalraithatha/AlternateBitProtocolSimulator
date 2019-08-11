@@ -37,7 +37,8 @@ template<typename T>
 class ApplicationGen : public iestream_input<Message_t,T> {
 	public:
 		ApplicationGen() = default;
-		ApplicationGen(const char* file_path) : iestream_input<Message_t,T>(file_path) {}
+		ApplicationGen(const char* file_path) : 
+			iestream_input<Message_t,T>(file_path) {}
 };
 
 int main() {
@@ -102,21 +103,22 @@ int main() {
 	cadmium::dynamic::modeling::Models submodels_TOP = {generator, receiver1};
 	cadmium::dynamic::modeling::EICs eics_TOP = {};
 	cadmium::dynamic::modeling::EOCs eocs_TOP = {
-			cadmium::dynamic::translate::make_EOC<Receiver_defs::out,
-			outp>("receiver1")
+		cadmium::dynamic::translate::make_EOC<Receiver_defs::out,
+		outp>("receiver1")
 	};
 	cadmium::dynamic::modeling::ICs ics_TOP = {
-			cadmium::dynamic::translate::make_IC<iestream_input_defs<Message_t>::out,
-			Receiver_defs::in>("generator","receiver1")
+		cadmium::dynamic::translate::make_IC<iestream_input_defs<Message_t>::out,
+		Receiver_defs::in>("generator","receiver1")
 	};
-	std::shared_ptr<cadmium::dynamic::modeling::coupled<TIME>> TOP = std::make_shared<cadmium::dynamic::modeling::coupled<TIME>>(
-			"TOP",
-			 submodels_TOP,
-			 iports_TOP,
-			 oports_TOP,
-			 eics_TOP,
-			 eocs_TOP,
-			 ics_TOP
+	std::shared_ptr<cadmium::dynamic::modeling::coupled<TIME>> TOP = 
+	std::make_shared<cadmium::dynamic::modeling::coupled<TIME>>(
+		"TOP",
+		submodels_TOP,
+		iports_TOP,
+		oports_TOP,
+		eics_TOP,
+		eocs_TOP,
+		ics_TOP
 	);
 
 	///****************////
@@ -124,11 +126,14 @@ int main() {
     auto elapsed1 = std::chrono::duration_cast<std::chrono::duration<double,
     std::ratio<1>>>(hclock::now() - start).count();
     cout << "Model Created. Elapsed time: " << elapsed1 << "sec" << endl;
+	
     cadmium::dynamic::engine::runner<NDTime, logger_top> r(TOP, {0});
     elapsed1 = std::chrono::duration_cast<std::chrono::duration<double,
     std::ratio<1>>>(hclock::now() - start).count();
     cout << "Runner Created. Elapsed time: " << elapsed1 << "sec" << endl;
+	
     cout << "Simulation starts" << endl;
+	
     r.run_until(NDTime("04:00:00:000"));
     auto elapsed = std::chrono::duration_cast<std::chrono::duration<double,
     std::ratio<1>>>(hclock::now() - start).count();
