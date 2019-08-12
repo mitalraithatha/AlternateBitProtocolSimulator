@@ -1,7 +1,3 @@
-#ifndef BOOST_SIMULATION_PDEVS_ABP_CPP
-#define BOOST_SIMULATION_PDEVS_ABP_CPP
-
-
 #include <iostream>
 #include <chrono>
 #include <algorithm>
@@ -263,5 +259,3 @@ int main(int argc, char ** argv) {
     return 0;
 }
 
-
-#endif // BOOST_SIMULATION_PDEVS_ABP_CPP

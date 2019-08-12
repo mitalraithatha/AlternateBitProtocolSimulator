@@ -1,6 +1,3 @@
-#ifndef BOOST_SIMULATION_PDEVS_RECEIVER_CPP
-#define BOOST_SIMULATION_PDEVS_RECEIVER_CPP
-
 #include <iostream>
 #include <chrono>
 #include <algorithm>
@@ -141,4 +138,3 @@ int main() {
     return 0;
 }
 
-#endif // BOOST_SIMULATION_PDEVS_RECEIVER_CPP
