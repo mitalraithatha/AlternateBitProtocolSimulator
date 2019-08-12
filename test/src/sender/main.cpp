@@ -124,8 +124,7 @@ int main() {
 			cadmium::dynamic::translate::make_EOC<Sender_defs::ackReceivedOut,
 			outp_ack>("sender1"), cadmium::dynamic::translate::make_EOC<
 			Sender_defs::dataOut, outp_data>("sender1") };
-	cadmium::dynamic::modeling::ICs ics_TOP =
-	{
+	cadmium::dynamic::modeling::ICs ics_TOP = {
 			cadmium::dynamic::translate::make_IC<
 			iestream_input_defs<Message_t>::out,
 			Sender_defs::controlIn>("generator_con", "sender1"),
