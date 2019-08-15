@@ -29,9 +29,9 @@ using namespace std;
 
 //Port definition
     struct subnet_defs{
-        struct output : public out_port<Message_t> {
+        struct output : public out_port<message_t> {
         };
-        struct input : public in_port<Message_t> {
+        struct input : public in_port<message_t> {
         };
     };
 //This is a meta-model, it should be overloaded for declaring the "id" parameter
@@ -82,7 +82,7 @@ using namespace std;
             // output function
             typename make_message_bags<output_ports>::type output() const {
               typename make_message_bags<output_ports>::type bags;
-              Message_t out;
+              message_t out;
               if ((double)rand() / (double) RAND_MAX  < 0.95){
                 out.value = state.packet;
                 get_messages<typename defs::output>(bags).push_back(out);

@@ -26,26 +26,26 @@ using hclock=chrono::high_resolution_clock;
 using TIME = NDTime;
 
 /***** SETING INPUT PORTS FOR COUPLEDs *****/
-struct input_control : public cadmium::in_port<Message_t>{};
-struct input_1 : public cadmium::in_port<Message_t>{};
-struct input_2 : public cadmium::in_port<Message_t>{};
+struct input_control : public cadmium::in_port<message_t>{};
+struct input_1 : public cadmium::in_port<message_t>{};
+struct input_2 : public cadmium::in_port<message_t>{};
 
 /***** SETING OUTPUT PORTS FOR COUPLEDs *****/
-struct output_ack : public cadmium::out_port<Message_t>{};
-struct output_1 : public cadmium::out_port<Message_t>{};
-struct output_2 : public cadmium::out_port<Message_t>{};
-struct output_pack : public cadmium::out_port<Message_t>{};
+struct output_ack : public cadmium::out_port<message_t>{};
+struct output_1 : public cadmium::out_port<message_t>{};
+struct output_2 : public cadmium::out_port<message_t>{};
+struct output_pack : public cadmium::out_port<message_t>{};
 
 /********************************************/
 /****** APPLICATION GENERATOR *******************/
 /********************************************/
 
 template<typename T>
-class ApplicationGen : public iestream_input<Message_t,T> {
+class ApplicationGen : public iestream_input<message_t,T> {
 	public:
 		ApplicationGen() = default;
 		ApplicationGen(const char* file_path) :
-		iestream_input<Message_t,T>(file_path) {}
+		iestream_input<message_t,T>(file_path) {}
 };
 
 int main(int argc, char ** argv) {
@@ -183,19 +183,19 @@ int main(int argc, char ** argv) {
 	};
 	cadmium::dynamic::modeling::EICs eics_ABPSimulator = {
 		cadmium::dynamic::translate::make_EIC<input_control, 
-		Sender_defs::controlIn>("sender1")
+		sender_defs::control_input>("sender1")
 	};
 	cadmium::dynamic::modeling::EOCs eocs_ABPSimulator = {
-		cadmium::dynamic::translate::make_EOC<Sender_defs::packetSentOut,
+		cadmium::dynamic::translate::make_EOC<sender_defs::packet_sent_output,
 		output_pack>("sender1"),
-		cadmium::dynamic::translate::make_EOC<Sender_defs::ackReceivedOut,
+		cadmium::dynamic::translate::make_EOC<sender_defs::ack_received_output,
 		output_ack>("sender1")
 	};
 	cadmium::dynamic::modeling::ICs ics_ABPSimulator = {
-		cadmium::dynamic::translate::make_IC<Sender_defs::dataOut,
+		cadmium::dynamic::translate::make_IC<sender_defs::data_output,
 		input_1>("sender1","Network"),
 		cadmium::dynamic::translate::make_IC<output_2,
-		Sender_defs::ackIn>("Network","sender1"),
+		sender_defs::ack_input>("Network","sender1"),
 		cadmium::dynamic::translate::make_IC<receiver_defs::output,
 		input_2>("receiver1","Network"),
 		cadmium::dynamic::translate::make_IC<output_1,
@@ -234,7 +234,7 @@ int main(int argc, char ** argv) {
 	};
 	
 	cadmium::dynamic::modeling::ICs ics_TOP = {
-		cadmium::dynamic::translate::make_IC<iestream_input_defs<Message_t>::out,
+		cadmium::dynamic::translate::make_IC<iestream_input_defs<message_t>::out,
 		input_control>("generator_con","ABPSimulator")
 	};
 	
