@@ -28,16 +28,16 @@ using namespace cadmium;
 using namespace std;
 
 //Port definition
-    struct Subnet_defs{
-        struct out : public out_port<Message_t> {
+    struct subnet_defs{
+        struct output : public out_port<Message_t> {
         };
-        struct in : public in_port<Message_t> {
+        struct input : public in_port<Message_t> {
         };
     };
 //This is a meta-model, it should be overloaded for declaring the "id" parameter
     template<typename TIME>
     class Subnet{
-        using defs=Subnet_defs; // putting definitions in context
+        using defs=subnet_defs; // putting definitions in context
         public:
             //Parameters to be overwriten when instantiating the atomic model
            
@@ -55,8 +55,8 @@ using namespace std;
             }; 
             state_type state;
             // ports definition
-            using input_ports=std::tuple<typename defs::in>;
-            using output_ports=std::tuple<typename defs::out>;
+            using input_ports=std::tuple<typename defs::input>;
+            using output_ports=std::tuple<typename defs::output>;
 
             // internal transition
             void internal_transition() {
@@ -66,8 +66,8 @@ using namespace std;
             // external transition
             void external_transition(TIME e, typename make_message_bags<input_ports>::type mbs) { 
                 state.index ++;
-                if(get_messages<typename defs::in>(mbs).size()>1) assert(false && "One message at a time");                
-                for (const auto &x : get_messages<typename defs::in>(mbs)) {
+                if(get_messages<typename defs::input>(mbs).size()>1) assert(false && "One message at a time");                
+                for (const auto &x : get_messages<typename defs::input>(mbs)) {
                   state.packet = static_cast < int > (x.value);
                   state.transmiting = true; 
                 }               
@@ -85,7 +85,7 @@ using namespace std;
               Message_t out;
               if ((double)rand() / (double) RAND_MAX  < 0.95){
                 out.value = state.packet;
-                get_messages<typename defs::out>(bags).push_back(out);
+                get_messages<typename defs::output>(bags).push_back(out);
               }
               return bags;
             }
