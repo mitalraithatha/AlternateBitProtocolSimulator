@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿# ﻿**ALTERNATE BIT PROTOCOL**
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿# ﻿ALTERNATE BIT PROTOCOL
 
 ----
 ## **Organization :** 
@@ -39,7 +39,7 @@ ABP (Alternating Bit Protocol) is a communication protocol to ensure reliable tr
 
 ----------------------------------
 
-### 2. doc :** This folder have documentation files of the project.
+### 2. doc : This folder have documentation files of the project.
 
 - alternatebitprot.pdf
 
@@ -49,7 +49,7 @@ ABP (Alternating Bit Protocol) is a communication protocol to ensure reliable tr
 
 ------------------------------------------------
 
-### 3. include :** This folder have the all the header files used in the project. 
+### 3. include : This folder have the all the header files used in the project. 
 
 #### 1. atomics:
  -  receiver_cadmium.hpp
@@ -72,7 +72,7 @@ ABP (Alternating Bit Protocol) is a communication protocol to ensure reliable tr
 
 ------------------
 
-### 5. src :**  This folder contains the source code for the message and top model.
+### 5. src : This folder contains the source code for the message and top model.
 
 
 #### 1. data_structures :  [Contains the source code for the top message]
@@ -83,7 +83,7 @@ ABP (Alternating Bit Protocol) is a communication protocol to ensure reliable tr
 
 -----------------------------------------------------------------
 
-### 6. test :**  This folder contains the unit test for the different include files.
+### 6. test : This folder contains the unit test for the different include files.
 
 #### 1. data : [This folder contains test input output files]
 1. receiver : [This folder contains the input output files for the unit test of the receiver]
@@ -118,21 +118,22 @@ ABP (Alternating Bit Protocol) is a communication protocol to ensure reliable tr
 2. Set the command prompt in the test/src/subnet folder. To do so, type in the terminal the path to this folder.
 
    > Example: cd Documents/AlternateBitProtocol/test/src/subnet
+   
 3. To compile the test, type in the terminal:
- 
-> make clean; make all					
- 
-4. To run the test, type in the terminal "./NAME_OF_THE_COMPILED_FILE". For this specific test you need to type:
-			
-			> ./SUBNET_TEST
+
+   > make clean; make all					
+
+4. To run the test, type in the terminal "./NAME_OF_THE_COMPILED_FILE". For this specific test you need to type:		
+
+     > ./SUBNET_TEST
 5. To check the output of the test, open  **"test/data/subnet/subnet_test_output.txt"**
-	
+
 
 #### 1.2. To run receiver and sender tests, the steps are analogous to 1.1, just select the appropriate path.
 
 -------------------------------
 
-### 2. -Run the Simulator**
+### 2. - Run the Simulator
 
 
 1. Open the terminal. Press in your keyboard Ctrl+Alt+t
@@ -147,6 +148,7 @@ ABP (Alternating Bit Protocol) is a communication protocol to ensure reliable tr
 
 4 - To run the simulation, type in the terminal "./NAME_OF_THE_COMPILED_FILE NAME_OF_THE_INPUT_FILE". For this test you need to type:
 		
+
 ```c
 ./ABP.txt
 ```
@@ -161,3 +163,32 @@ ABP (Alternating Bit Protocol) is a communication protocol to ensure reliable tr
    - 6.3. If you want to keep the output, rename abp_output.txt. To do so, type in the terminal: "mv abp_output.txt NEW_NAME"
 
      > Example: mv abp_output.txt abp_output_0.txt
+
+### 3.- Installation steps for Cadmium
+
+#### 3.1 Installing Cygwin and GCC 
+
+##### 3.1.1 apt-cyg INSTALLATION  :
+
+1. Open Cygwin in administrator mode and type the following commands 
+
+   > a) “wget rawgit.com/transcode-open/apt-cyg/master/apt-cyg” 
+   >
+   > b) “install apt-cyg /bin” "apt-cyg" in Cygwin is similar to "sudo apt-get" command in Linux. (Similar to Linux you can use this command to install packages, update, list them etc.)
+
+#### 3.2 INSTALLING CADMIUM DEPENDENCIES 
+
+##### 3.2.2 Installing Boost Library 
+
+1. Go to the location where you have downloaded the setup (.exe) file for Cygwin and open the Cygwin Terminal there. 
+
+2. Type **“./setup-x86_64.exe -q -P libboost-devel” (OR) Type “apt-cyg install libboost-devel”** 
+
+3. These steps install the boost library. 
+
+4. Download Cadmium & DESTimes Select a folder to store these files and your new projects. 
+
+5. Open Cygwin window inside this ‘folder’ location. 
+
+   > 1. Type “git clone https://github.com/SimulationEverywhere/cadmium” 
+   > 2. 2. Type “git clone https://github.com/Laouen/DESTimes.git” These steps download Cadmium and DESTimes.
