@@ -20,6 +20,7 @@
 #include "../../include/data_structures/message.hpp"
 #include "../../include/atomics/sender_cadmium.hpp"
 #include "../../include/atomics/receiver_cadmium.hpp"
+#include "../../include/atomics/format_convert.hpp"
 
 using namespace std;
 using hclock=chrono::high_resolution_clock;
@@ -49,6 +50,9 @@ class ApplicationGen : public iestream_input<message_t,T> {
 };
 
 int main(int argc, char ** argv) {
+
+	char input_file[] = "data/abp_output.txt"; //defining input parameter for file format converter.
+	char output_file[] = "data/formated_abp_output.txt"; //defining output parameter for file format converter.
 	if (argc < 2) {
 		cout << "you are using this program with wrong parameters. "
 				"The program should be invoked as follow:";
@@ -267,6 +271,7 @@ int main(int argc, char ** argv) {
     auto elapsed = std::chrono::duration_cast<std::chrono::duration<double,
                    std::ratio<1>>>(hclock::now() - start).count();
     cout << "Simulation took:" << elapsed << "sec" << endl;
+    converter(input_file, output_file); //function to convert file into formatted file
     return 0;
 }
 
