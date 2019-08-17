@@ -70,7 +70,7 @@ class Sender {
 	// internal transition
 	void internal_transition() {
 		if (state.acknowledgment) {
-			if (state.packet_number < state.packet_number) {
+			if (state.packet_number < state.total_packet_number) {
 				state.packet_number++;
 				state.acknowledgment = false;
 				state.alternating_bit = (state.alternating_bit + 1) % 2;
