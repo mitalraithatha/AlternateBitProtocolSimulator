@@ -1,4 +1,3 @@
-#include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
 #include<stdbool.h>
@@ -20,8 +19,8 @@ void getcomponent(char* data, char* component) {
 	tmp = strstr(data,model);
 	for(i=19,j=0 ; tmp[i]!='\0' && tmp[i]!='\n' ; i++,j++) {
 		component[j] = tmp[i];
-		component[j] = '\0';
 	}
+	component[j] = '\0';
 }
 
 /**
@@ -36,9 +35,9 @@ void getport(char* data, char* port) {
 	if(tmp != NULL) {
 		for(i=2,j=0;tmp[i]!=':';i++,j++) {
 			port[j]=tmp[i];
-			port[j]='\0';
-			strcpy(data, tmp+2);
 		}
+		port[j]='\0';
+		strcpy(data, tmp+2);
     }
 }
 /**
@@ -53,28 +52,28 @@ bool getvalue(char *data, char *value) {
 	}
 	for(i=1,j=0;tmp[i]!='}';i++,j++) {
 		value[j] = tmp[i];
-		value[j] = '\0';
-		strcpy(data,tmp);
-		return true;
 	}
+	value[j] = '\0';
+	strcpy(data,tmp);
+	return true;
 }
 /**
  * Converter function calls getvalues(), getports() and getcomponent() functions to create formatted file.
  * */
-void converter(char fin[], char fout[]){
+void converter(char *fin, char *fout){
 
 	char *data,*port="port", ch, *value="value", *component="component";
 	char* tmp = NULL;
 	char time[17], spaces[20];
 	int tmp_count=0, count = 0;
-	char *p_fin = fin;
-	char *p_fout = fout;
+	//char *p_fin = fin;
+	//char *p_fout = fout;
 	FILE *fp;
 
 	/**
 	* open the file in read mode.
 	*/
-	fp = fopen(p_fin,"r");
+	fp = fopen(fin,"r");
 
 	/**
 	* check the if the file is present or not
@@ -110,7 +109,7 @@ void converter(char fin[], char fout[]){
 	*/
 
 	FILE *fp1;
-	fp1 = fopen(p_fout,"w");
+	fp1 = fopen(fout,"w");
 	fprintf(fp1,"%s%17s%7s%25s\n",time,value,port,component);
 
 	memset(spaces,' ', sizeof(spaces)-1);
@@ -182,7 +181,8 @@ void converter(char fin[], char fout[]){
 	/**
 	 * de-allocate memory to pointers
 	 */
-
+	fclose(fp);
+	fclose(fp1);
 	free(data);
 	free(port);
 	free(component);
