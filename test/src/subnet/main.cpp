@@ -80,7 +80,9 @@ class ApplicationGen: public iestream_input<message_t, T> {
 /*! **Program Driver** */
 
 int main() {
-
+	
+    char *input_file = "test/data/subnet/subnet_test_output.txt";
+	char *output_file = "test/data/subnet/formated_subnet_output.txt";
     auto start = hclock::now(); //!<start time.
     /*!< variable to hold the start time of simulation. */
 
@@ -191,5 +193,6 @@ int main() {
 				     hclock::now() - start).count();
 	/*!< elapsed time since the simulation has started */
 	cout << "Simulation took:" << elapsed_simulation_time << "sec" << endl;
+	converter(input_file, output_file);
 	return 0;
 }

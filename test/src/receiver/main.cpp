@@ -66,6 +66,8 @@ class ApplicationGen : public iestream_input<message_t,T> {
 };
 
 int main() {
+	char *input_file = "test/data/receiver/receiver_test_output.txt"; //defining input parameter for file format converter.
+	char *output_file = "test/data/receiver/formated_receiver_output.txt"; //defining output parameter for file format converter.
 	auto start = hclock::now(); /** To measure simulation execution time	*/
 	/**
 	 * Generates text log file for all the message application operations
@@ -181,6 +183,7 @@ int main() {
     auto elapsed = std::chrono::duration_cast<std::chrono::duration<double,
                    std::ratio<1>>>(hclock::now() - start).count();
     cout << "Simulation took:" << elapsed << "sec" << endl;
+	converter(input_file, output_file);
     return 0;
 }
 

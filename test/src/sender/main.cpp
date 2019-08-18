@@ -88,7 +88,8 @@ class ApplicationGen: public iestream_input<message_t, T> {
 /*! **Program Driver** */
 
 int main() {
-
+    char *input_file = "test/data/sender/sender_test_output.txt";
+	char *output_file = "test/data/sender/formated_sender_output.txt";
 	auto start = hclock::now(); //!<start time.
 	 /*!< variable to hold the start time of simulation. */
 
@@ -227,5 +228,6 @@ int main() {
 	/*!< elapsed time since the simulation has started */
 
 	cout << "Simulation took:" << elapsed_simulation_time << "sec" << endl;
+   	converter(input_file, output_file);
 	return 0;
 }
