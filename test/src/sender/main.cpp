@@ -10,6 +10,7 @@
  *  bit, if ack is not received.
  *  The program does unit testing and takes control data and ack data
  *  from two input file paths and writes output log to a destination file.
+ *  Simulator is configured to run untill 04:00:00:000 time 
  *
  *  @author sreejith unnithan.
  */
@@ -40,6 +41,7 @@
 #include "..\..\..\lib\vendor\iestream.hpp"
 #include "..\..\..\include\data_structures\message.hpp"
 #include "..\..\..\include\atomics\sender_cadmium.hpp"
+#include "..\..\..\include\atomics\format_convert.hpp"
 
 
 

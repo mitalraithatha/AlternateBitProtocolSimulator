@@ -28,6 +28,7 @@
 #include "../../../lib/vendor/iestream.hpp"
 #include "../../../include/data_structures/message.hpp"
 #include "../../../include/atomics/receiver_cadmium.hpp"
+#include "..\..\..\include\atomics\format_convert.hpp"
 
 using namespace std;
 using hclock = chrono::high_resolution_clock;
