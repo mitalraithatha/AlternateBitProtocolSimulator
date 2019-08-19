@@ -60,7 +60,7 @@ bool getvalue(char *data, char *value) {
 /**
  * Converter function calls getvalues(), getports() and getcomponent() functions to create formatted file.
  * */
-void converter(char *fin, char *fout){
+void converter(const char *fin, const char *fout){
 
 	char *data,*port="port", ch, *value="value", *component="component";
 	char* tmp = NULL;

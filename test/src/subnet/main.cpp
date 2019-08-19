@@ -8,7 +8,7 @@
  *  with a time delay and with 95% probability
  *  The program takes input from a file path and writes output
  *  to a destination file.
- *  Simulator is configured to run untill 04:00:00:000 time
+ *  Simulator is configured to run until 04:00:00:000 time
  *
  *  @author sreejith unnithan.
  */
@@ -19,6 +19,12 @@
 
 #define SUBNET_TEST_INPUT "test/data/subnet/subnet_input_test.txt"
 /*!< macro that defines the output file path */
+
+#define SUBNET_FORMATTED_TEST_OUTPUT "test/data/subnet/formated_subnet_output.txt"
+/*!< macro that defines the formatted output file path */
+
+#define SUBNET_SIMULATION_RUN_TIME "04:00:00:000"
+/*!< macro that defines the simulation run time */
 
 #include <iostream>
 #include <chrono>
@@ -84,8 +90,6 @@ class ApplicationGen: public iestream_input<message_t, T> {
 
 int main() {
 	
-    char *input_file = "test/data/subnet/subnet_test_output.txt";
-	char *output_file = "test/data/subnet/formated_subnet_output.txt";
     auto start = hclock::now(); //!<start time.
     /*!< variable to hold the start time of simulation. */
 
@@ -189,13 +193,15 @@ int main() {
 
 	cout << "Simulation starts" << endl;
 
-	r.run_until(NDTime("04:00:00:000"));
+	r.run_until(NDTime(SUBNET_SIMULATION_RUN_TIME));
 	auto elapsed_simulation_time =
 		     std::chrono::duration_cast<
 			     std::chrono::duration<double, std::ratio<1>>>(
 				     hclock::now() - start).count();
 	/*!< elapsed time since the simulation has started */
 	cout << "Simulation took:" << elapsed_simulation_time << "sec" << endl;
+	const char *input_file = SUBNET_TEST_OUTPUT;
+	const char *output_file = SUBNET_FORMATTED_TEST_OUTPUT;
 	converter(input_file, output_file);
 	return 0;
 }

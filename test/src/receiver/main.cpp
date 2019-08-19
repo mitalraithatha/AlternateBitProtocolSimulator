@@ -9,6 +9,7 @@
  
 #define RECEIVER_TEST_INPUT  "test/data/receiver/receiver_input_test.txt"
 #define RECEIVER_TEST_OUTPUT  "test/data/receiver/receiver_test_output.txt"
+#define RECEIVER_FORMATTED_TEST_OUTPUT "test/data/receiver/formated_receiver_output.txt"
 
 #include <iostream>
 #include <chrono>
@@ -28,7 +29,7 @@
 #include "../../../lib/vendor/iestream.hpp"
 #include "../../../include/data_structures/message.hpp"
 #include "../../../include/atomics/receiver_cadmium.hpp"
-#include "..\..\..\include\atomics\format_convert.hpp"
+#include "../../../include/atomics/format_convert.hpp"
 
 using namespace std;
 using hclock = chrono::high_resolution_clock;
@@ -67,8 +68,8 @@ class ApplicationGen : public iestream_input<message_t,T> {
 };
 
 int main() {
-	char *input_file = "test/data/receiver/receiver_test_output.txt"; //defining input parameter for file format converter.
-	char *output_file = "test/data/receiver/formated_receiver_output.txt"; //defining output parameter for file format converter.
+	const char *input_file = RECEIVER_TEST_OUTPUT; //defining input parameter for file format converter.
+	const char *output_file = RECEIVER_FORMATTED_TEST_OUTPUT; //defining output parameter for file format converter.
 	auto start = hclock::now(); /** To measure simulation execution time	*/
 	/**
 	 * Generates text log file for all the message application operations

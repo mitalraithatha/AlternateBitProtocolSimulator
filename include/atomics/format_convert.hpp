@@ -7,6 +7,6 @@ void getport(char* data, char* port);
 
 bool getvalue(char *data, char *value);
 
-void converter(char *fin, char *fout);
+void converter(const char *fin, const char *fout);
 
 #endif // _FORMAT_CONVERT_HPP_

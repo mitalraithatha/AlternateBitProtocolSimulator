@@ -1,4 +1,5 @@
 #define TOPMODEL_TEST_OUTPUT  "data/abp_output.txt"
+#define TOPMODEL_FORMATTED_TEST_OUTPUT "data/formated_abp_output.txt"
 
 #include <iostream>
 #include <chrono>
@@ -51,9 +52,7 @@ class ApplicationGen : public iestream_input<message_t,T> {
 
 int main(int argc, char ** argv) {
 
-	char *input_file = "data/abp_output.txt";
-	char *output_file = "data/formated_abp_output.txt";
-	if (argc < 2) {
+		if (argc < 2) {
 		cout << "you are using this program with wrong parameters. "
 				"The program should be invoked as follow:";
 		cout << argv[0] << " path to the input file " << endl;
@@ -271,6 +270,8 @@ int main(int argc, char ** argv) {
     auto elapsed = std::chrono::duration_cast<std::chrono::duration<double,
                    std::ratio<1>>>(hclock::now() - start).count();
     cout << "Simulation took:" << elapsed << "sec" << endl;
+    const char *input_file = TOPMODEL_TEST_OUTPUT;
+    const char *output_file = TOPMODEL_FORMATTED_TEST_OUTPUT;
     converter(input_file, output_file);
     return 0;
 }
