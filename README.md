@@ -46,6 +46,7 @@ The ABP Simulator consists of 3 components: sender, network and receiver :
  - abp_output_1.txt
  - abp_output.txt
  - formatted_abp_output.txt
+ - average_output.txt
 
 ----------------------------------
 

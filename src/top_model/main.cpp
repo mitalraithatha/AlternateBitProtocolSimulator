@@ -1,5 +1,6 @@
 #define TOPMODEL_TEST_OUTPUT  "data/abp_output.txt"
 #define TOPMODEL_FORMATTED_TEST_OUTPUT "data/formatted_abp_output.txt"
+#define TOPMODEL_AVERAGE_OUTPUT "data/average_output.txt"
 
 #include <iostream>
 #include <chrono>
@@ -272,6 +273,9 @@ int main(int argc, char ** argv) {
     cout << "Simulation took:" << elapsed << "sec" << endl;
     const char *input_file = TOPMODEL_TEST_OUTPUT;
     const char *output_file = TOPMODEL_FORMATTED_TEST_OUTPUT;
-    converter(input_file, output_file);
+    const char *task_file = TOPMODEL_AVERAGE_OUTPUT;
+
+    converter(input_file, output_file ,task_file);
+
     return 0;
 }
