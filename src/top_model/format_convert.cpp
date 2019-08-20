@@ -80,6 +80,9 @@ bool getvalue(char *data, char *value) {
 	return true;
 }
 
+/**
+* Initialize time in secs,min,hrs and check the time difference of receiver to sender
+*/
 struct time difference(struct time sender, struct time receiver) {
 	struct time temp;
 	temp.hr=temp.min=0;
@@ -98,7 +101,9 @@ struct time difference(struct time sender, struct time receiver) {
 	}
 	return temp;
 }
-
+/**
+* get the time of sender1.
+*/
 void gettime(struct time *sender1, char temp_time[], char time[])
 {
 	strncpy(temp_time,time,2);
@@ -122,10 +127,11 @@ void gettime(struct time *sender1, char temp_time[], char time[])
 void converter(const char *file_input, const char *file_output , const char *ftask){
 
     char *data,*port=(char*)"port", character,
-           *value=(char*)"value", *component=(char*)"component";
-	char* temp = NULL;
+    *value=(char*)"value", *component=(char*)"component";
+	
+    char* temp = NULL;
 	char time[17], spaces[20];
-	int temp_count=0, count = 0;
+	int temp_count = 0, count = 0;
     FILE *p_input_file;
     /*!< pointer to the input file stream*/
 
@@ -162,7 +168,8 @@ void converter(const char *file_input, const char *file_output , const char *fta
 	strcpy(time,"Time");
 
 	/**
-	*open input file in write mode to print output in formated_abp_output.txt or formated_receiver_output.txt
+	*open input file in write mode to print output in formated_abp_output.txt 
+    *or formated_receiver_output.txt
 	*or formated_sender_output.txt or formated_subnet_outpat.txt
 	*file in current working directory
 	*/
@@ -173,9 +180,13 @@ void converter(const char *file_input, const char *file_output , const char *fta
 	/*
 	 * printing the header of the file
 	 */
+     
+     /**
+    * open the average_output file in write mode to print the analytics data.
+    */
 	 if(ftask){
 	 	p_analytics_file = fopen(ftask,"w");
-		}
+	}
 	
 	fprintf(p_output_file,"%s%17s%7s%25s\n",time,value,port,component);
 
@@ -237,47 +248,40 @@ void converter(const char *file_input, const char *file_output , const char *fta
 					/**
 					 *print value in file
 					 */
-				if(strcmp(port,"data_output")==0)
-					{
+				if(strcmp(port,"data_output")==0){
 						strncpy(time_sender1,time,12);
 
 						gettime(&sender1,temp_time,time);
-					}
-					else if(strcmp(port,"ack_received_output")==0)
-					{
+				}
+				else if(strcmp(port,"ack_received_output")==0){
 						success++;
-					}
+				}
 
-					if(strcmp(component,"subnet1")==0)
-					{
-						gettime(&subnet1,temp_time,time);
+				if(strcmp(component,"subnet1")==0){
+					gettime(&subnet1,temp_time,time);
 
-						subnet1 = difference(sender1, subnet1);
-						total_subnet1++;
-						subnet1_delay.sec = subnet1_delay.sec + subnet1.sec;
-						subnet1_delay.millisec = subnet1_delay.millisec + subnet1.millisec;
+					subnet1 = difference(sender1, subnet1);
+					total_subnet1++;
+					subnet1_delay.sec = subnet1_delay.sec + subnet1.sec;
+					subnet1_delay.millisec = subnet1_delay.millisec + subnet1.millisec;
 
-					}
-					else if(strcmp(component,"receiver1")==0)
-					{
-						gettime(&receiver1,temp_time,time);
+				}
+				else if(strcmp(component,"receiver1")==0){
+					gettime(&receiver1,temp_time,time);
 
-					
-					}
-					else if(strcmp(component,"subnet2")==0)
-					{
-						gettime(&subnet2,temp_time,time);
+				}
+				else if(strcmp(component,"subnet2")==0){
+					gettime(&subnet2,temp_time,time);
 
-					
-
-						subnet2 = difference(receiver1, subnet2);
-						total_subnet2++;
-						subnet2_delay.sec = subnet2_delay.sec + subnet2.sec;
-						subnet2_delay.millisec = subnet2_delay.millisec + subnet2.millisec;
-					}
+					subnet2 = difference(receiver1, subnet2);
+					total_subnet2++;
+					subnet2_delay.sec = subnet2_delay.sec + subnet2.sec;
+					subnet2_delay.millisec = subnet2_delay.millisec + subnet2.millisec;
+				}
 
 					fprintf(p_output_file,"%s%s%s%s\n",strncat(time, spaces, 16-strlen(time)),
-					strncat(value,spaces,8-strlen(value)), strncat(port,spaces,20 - strlen(port)), component);
+					strncat(value,spaces,8-strlen(value)), 
+                    strncat(port,spaces,20 - strlen(port)), component);
 				}
 				else {
 					bzero(port,count+1);
@@ -292,21 +296,24 @@ void converter(const char *file_input, const char *file_output , const char *fta
 		bzero(value, count+1);
 	}
 if(p_analytics_file){
-	if(total_subnet1)
-	{
-		fprintf(p_analytics_file,"Average delay introduced in subnet1 = %g secs and %g milliseconds\n",
-				(float)(subnet1_delay.sec)/(float)(total_subnet1),
-				(float)subnet1_delay.millisec/(float)(total_subnet1));
+	if(total_subnet1){
+		fprintf(p_analytics_file,"Average delay introduced in subnet1 = "
+                "%g secs and %g milliseconds\n",
+		(float)(subnet1_delay.sec)/(float)(total_subnet1),
+		(float)subnet1_delay.millisec/(float)(total_subnet1));
 	}
 	if(total_subnet2)
 	{
-		fprintf(p_analytics_file,"Average delay introduced in subnet2 = %g secs and %g milliseconds\n",
-				(float)(subnet2_delay.sec)/(float)(total_subnet2),
+		fprintf(p_analytics_file,"Average delay introduced in subnet2 = "
+                "%g secs and %g milliseconds\n",
+                (float)(subnet2_delay.sec)/(float)(total_subnet2),
 				(float)subnet2_delay.millisec/(float)(total_subnet2));
 	}
 
-	fprintf(p_analytics_file,"Total number of packets successfully sent for the entire simulation = %d\n", success);
-	fprintf(p_analytics_file,"Total delay introduced from sender to receiver for %d data packets = "
+	fprintf(p_analytics_file,"Total number of packets successfully "
+            "sent for the entire simulation = %d\n", success);
+	fprintf(p_analytics_file,"Total delay introduced from "
+            "sender to receiver for %d data packets = "
 			"%g secs and %g milliseconds\n",success ,
 			(float)(subnet1_delay.sec)+(float)(subnet2_delay.sec),
 			(float)subnet1_delay.millisec+(float)subnet2_delay.millisec);
