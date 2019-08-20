@@ -51,7 +51,7 @@ bool getvalue(char *data, char *value);
  *
  *  @param file_input The output log file generated from sender/receiver/subnet/topmodel
  *  @param file_output The formatted output file path
- *
+ *  @return void
  */
 
 void converter(const char *file_input, const char *file_output);
