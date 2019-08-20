@@ -22,7 +22,7 @@
 #define SENDER_INPUT_TEST_ACK_IN "test/data/sender/sender_input_test_ack_In.txt"
 /*!< macro that defines the input file path which represents received ack signal */
 
-#define SENDER_FORMATTED_TEST_OUTPUT "test/data/sender/formated_sender_output.txt"
+#define SENDER_FORMATTED_TEST_OUTPUT "test/data/sender/formatted_sender_output.txt"
 /*!< macro that defines the out put file path which contains the formatted output */
 
 #define SENDER_SIMULATION_RUN_TIME "04:00:00:000"
