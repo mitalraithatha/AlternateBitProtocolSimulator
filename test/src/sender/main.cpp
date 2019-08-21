@@ -13,16 +13,16 @@
  *  Simulator is configured to run until 04:00:00:000 time
  *  @author sreejith unnithan.
  */
-#define SENDER_TEST_OUTPUT "test/data/sender/sender_test_output.txt"
+#define SENDER_TEST_OUTPUT "../test/data/sender/sender_test_output.txt"
 /*!< macro that defines the output log file path */
 
-#define SENDER_INPUT_TEST_CONTROL "test/data/sender/sender_input_test_control_In.txt"
+#define SENDER_INPUT_TEST_CONTROL "../test/data/sender/sender_input_test_control_In.txt"
 /*!< macro that defines the input path containing the data to activate sender*/
 
-#define SENDER_INPUT_TEST_ACK_IN "test/data/sender/sender_input_test_ack_In.txt"
+#define SENDER_INPUT_TEST_ACK_IN "../test/data/sender/sender_input_test_ack_In.txt"
 /*!< macro that defines the input file path which represents received ack signal */
 
-#define SENDER_FORMATTED_TEST_OUTPUT "test/data/sender/formatted_sender_output.txt"
+#define SENDER_FORMATTED_TEST_OUTPUT "../test/data/sender/formatted_sender_output.txt"
 /*!< macro that defines the out put file path which contains the formatted output */
 
 #define SENDER_SIMULATION_RUN_TIME "04:00:00:000"
