@@ -1,6 +1,6 @@
-#define TOPMODEL_TEST_OUTPUT  "data/abp_output.txt"
-#define TOPMODEL_FORMATTED_TEST_OUTPUT "data/formatted_abp_output.txt"
-#define TOPMODEL_AVERAGE_OUTPUT "data/average_output.txt"
+#define TOPMODEL_TEST_OUTPUT  "../data/abp_output.txt"
+#define TOPMODEL_FORMATTED_TEST_OUTPUT "../data/formatted_abp_output.txt"
+#define TOPMODEL_AVERAGE_OUTPUT "../data/average_output.txt"
 
 #include <iostream>
 #include <chrono>

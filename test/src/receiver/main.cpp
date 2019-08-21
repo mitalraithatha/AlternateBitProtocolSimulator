@@ -7,9 +7,9 @@
 	this simulation timely controlled and runs until 04:00:00:000 time
 */
  
-#define RECEIVER_TEST_INPUT  "test/data/receiver/receiver_input_test.txt"
-#define RECEIVER_TEST_OUTPUT  "test/data/receiver/receiver_test_output.txt"
-#define RECEIVER_FORMATTED_TEST_OUTPUT "test/data/receiver/formatted_receiver_output.txt"
+#define RECEIVER_TEST_INPUT  "../test/data/receiver/receiver_input_test.txt"
+#define RECEIVER_TEST_OUTPUT  "../test/data/receiver/receiver_test_output.txt"
+#define RECEIVER_FORMATTED_TEST_OUTPUT "../test/data/receiver/formatted_receiver_output.txt"
 
 #include <iostream>
 #include <chrono>
