@@ -1,7 +1,31 @@
+/**
+ * @file main.cpp
+ *
+ * @brief This file is to simulate and test sender behavior
+ *        of ABP simulator.
+ *
+ *  Sender component is activated upon receiving a control signal.
+ *  It starts sending packets with alternating bit and waits for an ack
+ *  signal for a specific time and resends the packet with an alternating
+ *  bit, if ack is not received.
+ *  The program does unit testing and takes control data and ack data
+ *  from two input file paths and writes output log to a destination file.
+ *
+ *  @author sreejith unnithan.
+ */
+#define SENDER_TEST_OUTPUT "../test/data/sender/sender_test_output.txt"
+/*!< macro that defines the output log file path */
+
+#define SENDER_INPUT_TEST_CONTROL "../test/data/sender/sender_input_test_control_In.txt"
+/*!< macro that defines the input path containing the data to activate sender*/
+
+#define SENDER_INPUT_TEST_ACK_IN "../test/data/sender/sender_input_test_ack_In.txt"
+/*!< macro that defines the input file path which represents received ack signal */
 
 #define SENDER_TEST_OUTPUT "../test/data/sender/sender_test_output.txt"
 #define SENDER_INPUT_TEST_CONTROL "../test/data/sender/sender_input_test_control_In.txt"
 #define SENDER_INPUT_TEST_ACK_IN "../test/data/sender/sender_input_test_ack_In.txt"
+
 
 #include <iostream>
 #include <chrono>
@@ -29,37 +53,67 @@ using namespace std;
 using hclock=chrono::high_resolution_clock;
 using TIME = NDTime;
 
-/***** SETING INPUT PORTS FOR COUPLEDs *****/
 struct input_control: public cadmium::in_port<message_t> {};
+/*!< setting input port for trigger data */
+
 struct input_acknowledgment: public cadmium::in_port<message_t> {};
+/*!< setting input port for acknowledgment reception */
 
 /***** SETING OUTPUT PORTS FOR COUPLEDs *****/
 struct output_ack: public cadmium::out_port<message_t> {};
-struct output_data: public cadmium::out_port<message_t> {};
-struct output_pack: public cadmium::out_port<message_t> {};
+/*!< setting output port for acknowledgment*/
 
-/********************************************/
-/****** APPLICATION GENERATOR *******************/
-/********************************************/
+struct output_data: public cadmium::out_port<message_t> {};
+/*!< setting output port for sending data*/
+
+struct output_pack: public cadmium::out_port<message_t> {};
+/*!< setting output port for sending output data packets*/
+
+/*!\brief Application generator class.
+ *
+ * Class that inherits the properties of input_event_stream
+ * PDEVS Model(iestream.hpp).This class is for the application generator
+ * which reads the content from file path and transmits as message
+ * defined in the structure message_t.
+ */
+
 template<typename T>
 class ApplicationGen: public iestream_input<message_t, T> {
     public:
 	    ApplicationGen() = default;
+	    /*!< default constructor for the class */
 	    ApplicationGen(const char *file_path) :
 		iestream_input<message_t, T>(file_path) {}
+	    /*!< parameterized constructor, taking input file path
+	     * as argument.
+	     * @param file_path
+	     */
 };
+
+/*! **Program Driver** */
 
 int main() {
 
-	auto start = hclock::now(); //to measure simulation execution time
+	auto start = hclock::now(); //!<start time.
+	 /*!< variable to hold the start time of simulation. */
 
-	/*************** Loggers *******************/
 	static std::ofstream sender_output_data(SENDER_TEST_OUTPUT);
+	/*!< function to create an output file stream and
+	 *  write to the specified output path
+	 */
+
+	/*
+	 * structure that has function to create output stream
+	 */
 	struct oss_sink_provider {
 	    static std::ostream& sink() {
 		    return sender_output_data;
 		}
 	};
+
+	/*
+	 *Using Cadmium files to generate formatted log files
+	 */
 
 	using info=cadmium::logger::logger<cadmium::logger::logger_info,
 			cadmium::dynamic::logger::formatter<TIME>, oss_sink_provider>;
@@ -80,13 +134,20 @@ int main() {
 
 	using logger_top=cadmium::logger::multilogger<log_messages, global_time>;
 
-	/*******************************************/
+	/*
+	 * Application generator
+	 */
 
-	/********************************************/
-	/****** APPLICATION GENERATOR *******************/
-	/********************************************/
 	string input_data_control =SENDER_INPUT_TEST_CONTROL;
+	/*!< variable that holds the input file name which contains trigger data*/
+
 	const char *p_input_data_control = input_data_control.c_str();
+	/*!< pointer to file */
+
+	/*
+	 * code to initialize the Application generator class invoking its constructor
+	 * with the input control file path
+	 */
 
 	std::shared_ptr<cadmium::dynamic::modeling::model> generator_con =
 	    cadmium::dynamic::translate::make_dynamic_atomic_model<
@@ -94,24 +155,29 @@ int main() {
 			    std::move(p_input_data_control));
 
 	string input_data_ack = SENDER_INPUT_TEST_ACK_IN;
-	const char *p_input_data_ack = input_data_ack.c_str();
+	/*!< variable that holds the input file name which contains ack data*/
 
+	const char *p_input_data_ack = input_data_ack.c_str();
+	/*!< pointer to file */
+
+    /*
+     * code to initialize the Application generator class invoking its constructor
+     * with the input file path with ack information
+     */
 	std::shared_ptr<cadmium::dynamic::modeling::model> generator_ack =
 	    cadmium::dynamic::translate::make_dynamic_atomic_model<
 		    ApplicationGen, TIME, const char*>("generator_ack",
 					std::move(p_input_data_ack));
 
-	/********************************************/
-	/****** SENDER *******************/
-	/********************************************/
+	/*
+	 * sender simulation starts here
+	 */
 
 	std::shared_ptr<cadmium::dynamic::modeling::model> sender1 =
 	    cadmium::dynamic::translate::make_dynamic_atomic_model<Sender, TIME>(
 		    "sender1");
 
-	/************************/
-	/*******TOP MODEL********/
-	/************************/
+	
 	cadmium::dynamic::modeling::Ports iports_TOP = { };
 	cadmium::dynamic::modeling::Ports oports_TOP = { typeid(output_data),
 	    typeid(output_pack), typeid(output_ack) };
@@ -135,12 +201,16 @@ int main() {
 	    std::make_shared<cadmium::dynamic::modeling::coupled<TIME>>("TOP",
 		    submodels_TOP, iports_TOP, oports_TOP, eics_TOP, eocs_TOP,ics_TOP);
 
-	///****************////
+	/*
+	 * simulation ends
+	 */
 
 	auto elapsed_time =
 			std::chrono::duration_cast<
 			   std::chrono::duration<double, std::ratio<1>>>(
 			       hclock::now() - start).count();
+	/*!< elapsed time since the model has started */
+
 	cout << "Model Created. Elapsed time: " << elapsed_time << "sec" << endl;
 
 	cadmium::dynamic::engine::runner<NDTime, logger_top> r(TOP, { 0 });
@@ -157,6 +227,8 @@ int main() {
 			 std::chrono::duration_cast<
 			     std::chrono::duration<double, std::ratio<1>>>(
 				     hclock::now() - start).count();
+	/*!< elapsed time since the simulation has started */
+
 	cout << "Simulation took:" << elapsed_simulation_time << "sec" << endl;
 	return 0;
 }

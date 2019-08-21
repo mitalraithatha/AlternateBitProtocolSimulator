@@ -95,10 +95,10 @@ int main(int argc, char ** argv) {
 	/********************************************/
 	
 	string input_data_control = argv[1];
-	const char * p_i_input_data_control = input_data_control.c_str();
+	const char * p_input_data_control = input_data_control.c_str();
 	std::shared_ptr<cadmium::dynamic::modeling::model> generator_con =
 	cadmium::dynamic::translate::make_dynamic_atomic_model<ApplicationGen,
-	TIME,const char* >("generator_con" , std::move(p_i_input_data_control));
+	TIME,const char* >("generator_con" , std::move(p_input_data_control));
 
 
 	/********************************************/

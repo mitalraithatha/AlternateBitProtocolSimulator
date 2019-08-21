@@ -1,6 +1,23 @@
+/**
+ * @file main.cpp
+ *
+ * @brief This file is to simulate and test subnet(network) behavior
+ *        of ABP simulator.
+ *
+ *  This file simulates the network behavior which passes the packet
+ *  with a time delay and with 95% probability
+ *  The program takes input from a file path and writes output
+ *  to a destination file.
+ *
+ *  @author sreejith unnithan.
+ */
+
 
 #define SUBNET_TEST_OUTPUT "../test/data/subnet/subnet_test_output.txt"
+/*!< macro that defines the input file path */
+
 #define SUBNET_TEST_INPUT "../test/data/subnet/subnet_input_test.txt"
+/*!< macro that defines the output file path */
 
 #include <iostream>
 #include <chrono>
@@ -27,36 +44,64 @@ using namespace std;
 using hclock=chrono::high_resolution_clock;
 using TIME = NDTime;
 
-/***** SETING INPUT PORTS FOR COUPLEDs *****/
+/**
+ * setting input port for messages
+ */
 struct input_in: public cadmium::in_port<message_t> {
 };
 
-/***** SETING OUTPUT PORTS FOR COUPLEDs *****/
+/**
+ *  setting output port for messages
+ */
 struct output_out: public cadmium::out_port<message_t> {
 };
 
-/********************************************/
-/****** APPLICATION GENERATOR *******************/
-/********************************************/
+/*!\brief Application generator class.
+ *
+ * Class that inherits the properties of input_event_stream
+ * PDEVS Model(iestream.hpp).This class is for the application generator
+ * which reads the content from file path and transmits as message
+ * defined in the structure message_t.
+ */
 template<typename T>
 class ApplicationGen: public iestream_input<message_t, T> {
    public:
 	     ApplicationGen() = default;
+	     /*!< default constructor for the class */
+
 	     ApplicationGen(const char *file_path) :
 		 iestream_input<message_t, T>(file_path) {}
+	     /*!< parameterized constructor, taking input file path
+	      * as argument.
+	      * @param file_path
+	      */
 };
+
+/*! **Program Driver** */
 
 int main() {
 
-    auto start = hclock::now(); //to measure simulation execution time
+    auto start = hclock::now(); //!<start time.
+    /*!< variable to hold the start time of simulation. */
 
-	/*************** Loggers *******************/
-	static std::ofstream output_data(SUBNET_TEST_OUTPUT);
+    static std::ofstream output_data(SUBNET_TEST_OUTPUT);
+	/*!< function to create an output file stream and
+	 *  write to the specified output path
+	 */
+
+
+	/*
+	 * structure that has function to create output stream
+	 */
 	struct oss_sink_provider {
 		static std::ostream& sink() {
 			return output_data;
 		}
 	};
+
+	/*
+	 * Using Cadmium files to generate formatted log files
+	 */
 
 	using info=cadmium::logger::logger<cadmium::logger::logger_info,
 	    cadmium::dynamic::logger::formatter<TIME>, oss_sink_provider>;
@@ -77,29 +122,32 @@ int main() {
 
 	using logger_top=cadmium::logger::multilogger<log_messages, global_time>;
 
-	/*******************************************/
 
-	/********************************************/
-	/****** APPLICATION GENERATOR *******************/
-	/********************************************/
 	string input_data = SUBNET_TEST_INPUT;
+	/*!< variable that holds the input file name */
+
 	const char *p_input_data = input_data.c_str();
+	/*!< pointer to file */
+
+	/*
+	 * code to initialize the Application generator class invoking its constructor
+	 * with the input file path
+	 */
     std::shared_ptr<cadmium::dynamic::modeling::model> generator =
 			cadmium::dynamic::translate::make_dynamic_atomic_model<
 					ApplicationGen, TIME, const char*>("generator",
 					std::move(p_input_data));
 
-	/********************************************/
-	/****** SUBNET *******************/
-	/********************************************/
+	/*
+	 * Here output data is being generated from the subnet.
+	 * Subnet simulation starts here
+	 */
 
 	std::shared_ptr<cadmium::dynamic::modeling::model> subnet1 =
 			cadmium::dynamic::translate::make_dynamic_atomic_model<Subnet, TIME>(
 					"subnet1");
 
-	/************************/
-	/*******TOP MODEL********/
-	/************************/
+
 	cadmium::dynamic::modeling::Ports iports_TOP = { };
 	cadmium::dynamic::modeling::Ports oports_TOP = { typeid(output_out) };
 	cadmium::dynamic::modeling::Models submodels_TOP = { generator, subnet1 };
@@ -115,12 +163,16 @@ int main() {
 	    std::make_shared<cadmium::dynamic::modeling::coupled<TIME>>("TOP",
 		    submodels_TOP, iports_TOP, oports_TOP, eics_TOP, eocs_TOP,ics_TOP);
 
-	///****************////
+	/*
+	 * simulation end
+	 */
 
 	auto elapsed_time =
 		     std::chrono::duration_cast<
 			     std::chrono::duration<double, std::ratio<1>>>(
 				     hclock::now() - start).count();
+	/*!< elapsed time since the model has started */
+
 	cout << "Model Created. Elapsed time: " << elapsed_time << "sec" << endl;
 
 	cadmium::dynamic::engine::runner<NDTime, logger_top> r(TOP, { 0 });
@@ -137,6 +189,7 @@ int main() {
 		     std::chrono::duration_cast<
 			     std::chrono::duration<double, std::ratio<1>>>(
 				     hclock::now() - start).count();
+	/*!< elapsed time since the simulation has started */
 	cout << "Simulation took:" << elapsed_simulation_time << "sec" << endl;
 	return 0;
 }
