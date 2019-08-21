@@ -20,9 +20,9 @@ lib [This folder contains the third party header files]
 	
 include [This folder contains the header files used]
 	atomics
-		receiverCadmium.hpp
+		receiver_cadmium.hpp
 		senderCadmium.hpp
-		subnetCadmium.hpp
+		subnet_cadmium.hpp
 	data_structures [contains message header file]
 		message.hpp
 		
