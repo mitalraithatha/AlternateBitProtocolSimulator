@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿# ﻿ALTERNATE BIT PROTOCOL
+# ALTERNATE BIT PROTOCOL
 
 ----
 ## **Organization :** 
