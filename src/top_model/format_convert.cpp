@@ -1,7 +1,14 @@
 /**
  * @file format_convert.cpp
  * @brief This file is to extract specific information from the output log
- *        generated from sender,subnet,receiver and the ABP simulator
+ *        generated from sender,subnet,receiver and the ABP simulator.
+ *        This file also runs analytics on top of the generated formatted
+ *        output file. Analytics include 1)AVERAGE DELAY INTRODUCED IN SUBNET1
+ *        2)AVERAGE DELAY INTRODUCED IN SUBNET2 3)TOTAL NUMBER OF PACKETS
+ *        SUCCESSFULLY SENT FOR THE ENTIRE SIMULATION 4)TOTAL DELAY INTRODUCED 
+ *        FROM SENDER TO RECEIVER FOR Nth DATA PACKET.
+ *        Formatted output is present in "/data/formatted_abp_output.txt".
+ *        Analytics data output is present in "/data/average_output.txt"
  *
  * Specific information from the output log is extracted and is written
  * to file
