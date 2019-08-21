@@ -1,5 +1,5 @@
-#define RECEIVER_TEST_INPUT  "test/data/receiver/receiver_input_test.txt"
-#define RECEIVER_TEST_OUTPUT  "test/data/receiver/receiver_test_output.txt"
+#define RECEIVER_TEST_INPUT  "../test/data/receiver/receiver_input_test.txt"
+#define RECEIVER_TEST_OUTPUT  "../test/data/receiver/receiver_test_output.txt"
 
 #include <iostream>
 #include <chrono>

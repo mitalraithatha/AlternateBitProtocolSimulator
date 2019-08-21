@@ -1,6 +1,6 @@
 
-#define SUBNET_TEST_OUTPUT "test/data/subnet/subnet_test_output.txt"
-#define SUBNET_TEST_INPUT "test/data/subnet/subnet_input_test.txt"
+#define SUBNET_TEST_OUTPUT "../test/data/subnet/subnet_test_output.txt"
+#define SUBNET_TEST_INPUT "../test/data/subnet/subnet_input_test.txt"
 
 #include <iostream>
 #include <chrono>
