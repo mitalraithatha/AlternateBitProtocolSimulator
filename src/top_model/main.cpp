@@ -1,4 +1,4 @@
-#define TOPMODEL_TEST_OUTPUT  "data/abp_output.txt"
+#define TOPMODEL_TEST_OUTPUT  "../data/abp_output.txt"
 
 #include <iostream>
 #include <chrono>

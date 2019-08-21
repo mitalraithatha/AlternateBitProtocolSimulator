@@ -13,13 +13,13 @@
  *
  *  @author sreejith unnithan.
  */
-#define SENDER_TEST_OUTPUT "test/data/sender/sender_test_output.txt"
+#define SENDER_TEST_OUTPUT "../test/data/sender/sender_test_output.txt"
 /*!< macro that defines the output log file path */
 
-#define SENDER_INPUT_TEST_CONTROL "test/data/sender/sender_input_test_control_In.txt"
+#define SENDER_INPUT_TEST_CONTROL "../test/data/sender/sender_input_test_control_In.txt"
 /*!< macro that defines the input path containing the data to activate sender*/
 
-#define SENDER_INPUT_TEST_ACK_IN "test/data/sender/sender_input_test_ack_In.txt"
+#define SENDER_INPUT_TEST_ACK_IN "../test/data/sender/sender_input_test_ack_In.txt"
 /*!< macro that defines the input file path which represents received ack signal */
 
 #include <iostream>
@@ -172,9 +172,7 @@ int main() {
 	    cadmium::dynamic::translate::make_dynamic_atomic_model<Sender, TIME>(
 		    "sender1");
 
-	/************************/
-	/*******TOP MODEL********/
-	/************************/
+	
 	cadmium::dynamic::modeling::Ports iports_TOP = { };
 	cadmium::dynamic::modeling::Ports oports_TOP = { typeid(output_data),
 	    typeid(output_pack), typeid(output_ack) };

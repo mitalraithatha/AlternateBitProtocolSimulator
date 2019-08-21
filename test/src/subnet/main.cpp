@@ -13,10 +13,10 @@
  */
 
 
-#define SUBNET_TEST_OUTPUT "test/data/subnet/subnet_test_output.txt"
+#define SUBNET_TEST_OUTPUT "../test/data/subnet/subnet_test_output.txt"
 /*!< macro that defines the input file path */
 
-#define SUBNET_TEST_INPUT "test/data/subnet/subnet_input_test.txt"
+#define SUBNET_TEST_INPUT "../test/data/subnet/subnet_input_test.txt"
 /*!< macro that defines the output file path */
 
 #include <iostream>
