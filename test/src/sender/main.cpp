@@ -181,14 +181,14 @@ int main() {
 
     cadmium::dynamic::modeling::Ports iports_TOP = { };
     cadmium::dynamic::modeling::Ports oports_TOP = { 
-	                                                typeid(output_data),
-													typeid(output_pack), 
-													typeid(output_ack) 
-													};
+                                                    typeid(output_data),
+                                                    typeid(output_pack), 
+                                                    typeid(output_ack) 
+                                                    };
     cadmium::dynamic::modeling::Models submodels_TOP = { generator_con,
                                                          generator_ack, 
-														 sender1 
-													   };
+                                                         sender1 
+                                                       };
     cadmium::dynamic::modeling::EICs eics_TOP = { };
     cadmium::dynamic::modeling::EOCs eocs_TOP = {
         cadmium::dynamic::translate::make_EOC<sender_defs::packet_sent_output,
