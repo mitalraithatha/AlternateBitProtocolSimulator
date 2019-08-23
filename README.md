@@ -28,9 +28,16 @@ The ABP Simulator consists of 3 components: sender, network and receiver :
 
 **Receiver :** The behavior of receiver is to receive the data and send back an acknowledgement extracted from the received data after a time period.
 
-**Subnet :** The subnets just pass the packets after a time delay. However, in order to simulate the unreliability of the network, only 95% of the packets will be passed in each of the subnet, i.e. 5% of the data will be lost through the subnet
+**Subnet :** The subnets just pass the packets after a time delay. However, in order to simulate the unreliability of the network, only 95% of the packets will be passed in each of the subnet, i.e. 5% of the data will be lost through the subnet.
 
-**Sender :** Every time when sender is sent a packet, it waits for an acknowledgement during an specific waiting time. It the acknowledgment does not arrive within the time window, the sender will re-send the previous packet with the alternating bit. If the expected acknowledgement is received within the time window, the sender will send the next packet
+**Sender :** Every time when sender is sent a packet, it waits for an acknowledgement during an specific waiting time. It the acknowledgment does not arrive within the time window, the sender will re-send the previous packet with the alternating bit. If the expected acknowledgement is received within the time window, the sender will send the next packet.
+
+**Data Analytics :** ABP simulator model run analytics on the top of the generated simulator output log,to calculate the following information.
+
+1. Average delay introduced in subnet1.
+2. Average delay introduced in subnet2.
+3. Total number of packets successfully sent for the entire simulation.
+4. Total delay introduced from sender to receiver for nth  data packets .
 
 ----
 ## **File and Folder Structure Organization**
@@ -134,18 +141,23 @@ The ABP Simulator consists of 3 components: sender, network and receiver :
 
 1. Open the terminal. Press in your keyboard Ctrl+Alt+t
 
-2. Set the command prompt in the test/src/subnet folder. To do so, type in the terminal the path to this folder.
+2. Set the command prompt in the AlternateBitProtocol folder. To do so, type in the terminal the path to this folder.
 
-   > Example: cd Documents/AlternateBitProtocol/test/src/subnet
+   > Example: cd AlternateBitProtocol
    
 3. To compile the test, type in the terminal:
 
-   > make clean; make all					
+   > make clean; make all
+   >
+   > cd bin
 
 4. To run the test, type in the terminal "./NAME_OF_THE_COMPILED_FILE". For this specific test you need to type:		
 
      > ./SUBNET_TEST
-5. To check the output of the test, open  **"test/data/subnet/subnet_test_output.txt"**
+
+5. To check the unformatted output of the test, open  **"test/data/subnet/subnet_test_output.txt"**
+
+     - To check the formatted output of the test , open **"test/data/subnet/formatted_subnet_output"**
 
 
 #### 1.2. To run receiver and sender tests, the steps are analogous to 1.1, just select the appropriate path.
@@ -157,22 +169,26 @@ The ABP Simulator consists of 3 components: sender, network and receiver :
 
 1. Open the terminal. Press in your keyboard Ctrl+Alt+t
 
-2. Set the command prompt in the src/top_model folder. To do so, type in the terminal the path to this folder.
+2. Set the command prompt in the  AlternateBitProtocol folder. To do so, type in the terminal the path to this folder.
 
-   > Example: cd ../../top_model
+   > Example: cd  AlternateBitProtocol
 3.  To compile the project, type in the terminal:
-		
-    
-    > make clean; make all
+	
+    > make clean; make all 
+    >
+    > cd bin
 
 4 - To run the simulation, type in the terminal "./NAME_OF_THE_COMPILED_FILE NAME_OF_THE_INPUT_FILE". For this test you need to type:
 		
 
 ```c
-./ABP.txt
+./ABP.exe ../data/input_abp_0.txt
 ```
 
-5 - To check the output of the simulation, open  **"data/abp_output.txt"**
+5 - To check the unformatted output of the simulation, open  **"data/abp_output.txt"**
+
+	- To check the formatted output of the file, open **"data/formatted_output.txt"**
+	- To check the analytics output of the file , open **"data/average_output.txt"**
 
 6 - To execute the simulator with different inputs
 
