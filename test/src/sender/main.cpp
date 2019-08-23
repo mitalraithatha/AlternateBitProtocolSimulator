@@ -28,6 +28,10 @@
 #define SENDER_SIMULATION_RUN_TIME "04:00:00:000"
 /*!< macro that defines the simulation run time */
 
+#define SENDER_TEST_OUTPUT "../test/data/sender/sender_test_output.txt"
+#define SENDER_INPUT_TEST_CONTROL "../test/data/sender/sender_input_test_control_In.txt"
+#define SENDER_INPUT_TEST_ACK_IN "../test/data/sender/sender_input_test_ack_In.txt"
+
 #include <iostream>
 #include <chrono>
 #include <algorithm>
