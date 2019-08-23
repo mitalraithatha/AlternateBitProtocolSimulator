@@ -51,9 +51,10 @@ bool getvalue(char *data, char *value);
  *
  *  @param file_input The output log file generated from sender/receiver/subnet/topmodel
  *  @param file_output The formatted output file path
+    @param file
  *  @return void
  */
 
-void converter(const char *file_input, const char *file_output);
+void converter(const char *file_input, const char *file_output, const char *ftask= NULL);
 
 #endif // _FORMAT_CONVERT_HPP_

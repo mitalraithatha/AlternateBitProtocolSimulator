@@ -1,0 +1,4 @@
+Average delay introduced in subnet1 = 3 secs and 0 milliseconds
+Average delay introduced in subnet2 = 3 secs and 0 milliseconds
+Total number of packets successfully sent for the entire simulation = 8
+Total delay introduced from sender to receiver for 8 data packets = 48 secs and 0 milliseconds
