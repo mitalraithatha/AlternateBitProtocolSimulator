@@ -9,6 +9,7 @@
  
 #define RECEIVER_TEST_INPUT  "../test/data/receiver/receiver_input_test.txt"
 #define RECEIVER_TEST_OUTPUT  "../test/data/receiver/receiver_test_output.txt"
+#define RECEIVER_FORMATTED_TEST_OUTPUT "../test/data/receiver/formatted_receiver_output.txt"
 
 #include <iostream>
 #include <chrono>
@@ -23,10 +24,12 @@
 #include <cadmium/engine/pdevs_dynamic_runner.hpp>
 #include <cadmium/logger/tuple_to_ostream.hpp>
 #include <cadmium/logger/common_loggers.hpp>
-#include "../../../lib/vendor/NDTime.hpp"
+
+#include <NDTime.hpp>
 #include "../../../lib/vendor/iestream.hpp"
 #include "../../../include/data_structures/message.hpp"
 #include "../../../include/atomics/receiver_cadmium.hpp"
+#include "../../../include/atomics/format_convert.hpp"
 
 using namespace std;
 using hclock = chrono::high_resolution_clock;
@@ -65,6 +68,8 @@ class ApplicationGen : public iestream_input<message_t,T> {
 };
 
 int main() {
+	const char *input_file = RECEIVER_TEST_OUTPUT; //defining input parameter for file format converter.
+	const char *output_file = RECEIVER_FORMATTED_TEST_OUTPUT; //defining output parameter for file format converter.
 	auto start = hclock::now(); /** To measure simulation execution time	*/
 	/**
 	 * Generates text log file for all the message application operations
@@ -180,6 +185,7 @@ int main() {
     auto elapsed = std::chrono::duration_cast<std::chrono::duration<double,
                    std::ratio<1>>>(hclock::now() - start).count();
     cout << "Simulation took:" << elapsed << "sec" << endl;
+	converter(input_file, output_file);
     return 0;
 }
 

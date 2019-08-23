@@ -1,4 +1,5 @@
 #define TOPMODEL_TEST_OUTPUT  "../data/abp_output.txt"
+#define TOPMODEL_FORMATTED_TEST_OUTPUT "../data/formatted_abp_output.txt"
 
 #include <iostream>
 #include <chrono>
@@ -13,13 +14,14 @@
 #include <cadmium/engine/pdevs_dynamic_runner.hpp>
 #include <cadmium/logger/tuple_to_ostream.hpp>
 #include <cadmium/logger/common_loggers.hpp>
-
 #include "../../include/atomics/subnet_cadmium.hpp"
-#include "../../lib/vendor/NDTime.hpp"
+#include <NDTime.hpp>
+
 #include "../../lib/vendor/iestream.hpp"
 #include "../../include/data_structures/message.hpp"
 #include "../../include/atomics/sender_cadmium.hpp"
 #include "../../include/atomics/receiver_cadmium.hpp"
+#include "../../include/atomics/format_convert.hpp"
 
 using namespace std;
 using hclock=chrono::high_resolution_clock;
@@ -49,7 +51,8 @@ class ApplicationGen : public iestream_input<message_t,T> {
 };
 
 int main(int argc, char ** argv) {
-	if (argc < 2) {
+
+		if (argc < 2) {
 		cout << "you are using this program with wrong parameters. "
 				"The program should be invoked as follow:";
 		cout << argv[0] << " path to the input file " << endl;
@@ -267,6 +270,8 @@ int main(int argc, char ** argv) {
     auto elapsed = std::chrono::duration_cast<std::chrono::duration<double,
                    std::ratio<1>>>(hclock::now() - start).count();
     cout << "Simulation took:" << elapsed << "sec" << endl;
+    const char *input_file = TOPMODEL_TEST_OUTPUT;
+    const char *output_file = TOPMODEL_FORMATTED_TEST_OUTPUT;
+    converter(input_file, output_file);
     return 0;
 }
-

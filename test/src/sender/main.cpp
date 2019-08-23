@@ -10,9 +10,10 @@
  *  bit, if ack is not received.
  *  The program does unit testing and takes control data and ack data
  *  from two input file paths and writes output log to a destination file.
- *
+ *  Simulator is configured to run until 04:00:00:000 time
  *  @author sreejith unnithan.
  */
+
 #define SENDER_TEST_OUTPUT "../test/data/sender/sender_test_output.txt"
 /*!< macro that defines the output log file path */
 
@@ -22,10 +23,15 @@
 #define SENDER_INPUT_TEST_ACK_IN "../test/data/sender/sender_input_test_ack_In.txt"
 /*!< macro that defines the input file path which represents received ack signal */
 
+#define SENDER_FORMATTED_TEST_OUTPUT "../test/data/sender/formatted_sender_output.txt"
+/*!< macro that defines the out put file path which contains the formatted output */
+
+#define SENDER_SIMULATION_RUN_TIME "04:00:00:000"
+/*!< macro that defines the simulation run time */
+
 #define SENDER_TEST_OUTPUT "../test/data/sender/sender_test_output.txt"
 #define SENDER_INPUT_TEST_CONTROL "../test/data/sender/sender_input_test_control_In.txt"
 #define SENDER_INPUT_TEST_ACK_IN "../test/data/sender/sender_input_test_ack_In.txt"
-
 
 #include <iostream>
 #include <chrono>
@@ -40,11 +46,12 @@
 #include <cadmium\engine\pdevs_dynamic_runner.hpp>
 #include <cadmium\logger\tuple_to_ostream.hpp>
 #include <cadmium\logger\common_loggers.hpp>
+#include <NDTime.hpp>
 
-#include "..\..\..\lib\vendor\NDTime.hpp"
 #include "..\..\..\lib\vendor\iestream.hpp"
 #include "..\..\..\include\data_structures\message.hpp"
 #include "..\..\..\include\atomics\sender_cadmium.hpp"
+#include "..\..\..\include\atomics\format_convert.hpp"
 
 
 
@@ -142,7 +149,7 @@ int main() {
 	/*!< variable that holds the input file name which contains trigger data*/
 
 	const char *p_input_data_control = input_data_control.c_str();
-	/*!< pointer to file */
+	/*!< pointer to file path */
 
 	/*
 	 * code to initialize the Application generator class invoking its constructor
@@ -158,7 +165,7 @@ int main() {
 	/*!< variable that holds the input file name which contains ack data*/
 
 	const char *p_input_data_ack = input_data_ack.c_str();
-	/*!< pointer to file */
+	/*!< pointer to file path */
 
     /*
      * code to initialize the Application generator class invoking its constructor
@@ -177,7 +184,6 @@ int main() {
 	    cadmium::dynamic::translate::make_dynamic_atomic_model<Sender, TIME>(
 		    "sender1");
 
-	
 	cadmium::dynamic::modeling::Ports iports_TOP = { };
 	cadmium::dynamic::modeling::Ports oports_TOP = { typeid(output_data),
 	    typeid(output_pack), typeid(output_ack) };
@@ -221,8 +227,10 @@ int main() {
 	cout << "Runner Created. Elapsed time: " << elapsed_time << "sec" << endl;
 
 	cout << "Simulation starts" << endl;
-
-	r.run_until(NDTime("04:00:00:000"));
+    /*
+     * running the model until 04:00:00:000
+     */
+	r.run_until(NDTime(SENDER_SIMULATION_RUN_TIME));
 	auto elapsed_simulation_time =
 			 std::chrono::duration_cast<
 			     std::chrono::duration<double, std::ratio<1>>>(
@@ -230,5 +238,10 @@ int main() {
 	/*!< elapsed time since the simulation has started */
 
 	cout << "Simulation took:" << elapsed_simulation_time << "sec" << endl;
+	const char *input_file = SENDER_TEST_OUTPUT;
+	/*!< pointer to file path containing the sender output logs */
+	const char *output_file = SENDER_FORMATTED_TEST_OUTPUT;
+	/*!< pointer to file path containing the formatted sender output logs */
+   	converter(input_file, output_file);
 	return 0;
 }

@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿# ﻿ALTERNATE BIT PROTOCOL
+# ALTERNATE BIT PROTOCOL
 
 ----
 ## **Organization :** 
@@ -24,34 +24,47 @@
 
 ABP (Alternating Bit Protocol) is a communication protocol to ensure reliable transmission through unreliable network. The sender sends a packet and waits for an acknowledgement. If the acknowledgement doesn't arrive within a predefined time, the sender re-sends this packet until it receives an expected acknowledgement and then sends the next packet. In order to distinguish two consecutive packets, the sender adds an additional bit on each packet (called alternating bit because the sender uses 0 and 1 alternatively). This software is a simulator to replicate the behavior of the Alternating Bit Protocol.
 
+The ABP Simulator consists of 3 components: sender, network and receiver :
+
+**Receiver :** The behavior of receiver is to receive the data and send back an acknowledgement extracted from the received data after a time period.
+
+**Subnet :** The subnets just pass the packets after a time delay. However, in order to simulate the unreliability of the network, only 95% of the packets will be passed in each of the subnet, i.e. 5% of the data will be lost through the subnet
+
+**Sender :** Every time when sender is sent a packet, it waits for an acknowledgement during an specific waiting time. It the acknowledgment does not arrive within the time window, the sender will re-send the previous packet with the alternating bit. If the expected acknowledgement is received within the time window, the sender will send the next packet
+
 ----
 ## **File and Folder Structure Organization**
 
 ### **1. data :**   This folder have input and output files for the ABP simulator.
 
 #### 1. Two input files :
- - input_ abp_0.txt
- - input_ abp_1.txt
+ - input_abp_0.txt
+ - input_abp_1.txt
 
 #### 2. Two output files :
- - abp_ output_0.txt
- - abp_ output_1.txt
+ - abp_output_0.txt
+ - abp_output_1.txt
+ - abp_output.txt
+ - formatted_abp_output.txt
 
 ----------------------------------
 
 ### 2. doc : This folder have documentation files of the project.
 
 - alternatebitprot.pdf
-
 - Cadmium_Documentation_Ubuntu.pdf
-
 - Cadmium_Windows.pdf
+- Doxygen_docs_sender_main.zip
+- Doxygen_docs_subnet_main.zip
+- Doxygen_receiver_cadmium.hpp_&_receiver_main.cpp
 
 ------------------------------------------------
 
 ### 3. include : This folder have the all the header files used in the project. 
 
 #### 1. atomics:
+
+ -  format_convert.hpp
  -  receiver_cadmium.hpp
  - sender_cadmium.hpp
  - subnet_cadmium.hpp
@@ -63,12 +76,13 @@ ABP (Alternating Bit Protocol) is a communication protocol to ensure reliable tr
 
 ### **4. lib :**  This folder contains the third party header files.
 
-#### 1. vendor : [This folder contains 3rd party header files needed in the project]
- - iestream.hpp
- - NDTime.hpp
+#### 1. cadmium-master[contains cadmium files as submodules]
 
-#### 2. cadmium-master[contains cadmium files]
-#### 3. DesTimes-master[contains destimes files]
+#### 2. DesTimes-master[contains destimes files as submodules]
+
+#### 3. vendor : [This folder contains 3rd party header files needed in the project]
+
+- iestream.hpp
 
 ------------------
 
@@ -79,6 +93,7 @@ ABP (Alternating Bit Protocol) is a communication protocol to ensure reliable tr
    - message.cpp
 
 #### 2. top_ model [Contains the source code for the top_model] 
+ - format_convert.cpp
  - main.cpp
 
 -----------------------------------------------------------------
@@ -87,13 +102,16 @@ ABP (Alternating Bit Protocol) is a communication protocol to ensure reliable tr
 
 #### 1. data : [This folder contains test input output files]
 1. receiver : [This folder contains the input output files for the unit test of the receiver]
+     - formatted_receiver_output
      - receiver_ input_test
      - receiver_ test_output
 2. sender : [ This folder contains the input output files foe the unit test of the sender]
+     - formatted_sender_output
      - sender_ input_ test_ ack_In
      - sender_ input_ test_ control_ In
      - sender_ test_ output
 3. subnet : [This folder contains the input output files foe the unit test of the subnet]
+     - formatted_subnet_output
      - subnet_ input_test
      - subnet_ test_output
 
@@ -192,3 +210,17 @@ ABP (Alternating Bit Protocol) is a communication protocol to ensure reliable tr
 
    > 1. Type “git clone https://github.com/SimulationEverywhere/cadmium” 
    > 2. 2. Type “git clone https://github.com/Laouen/DESTimes.git” These steps download Cadmium and DESTimes.
+
+
+
+### 3.- Download the Cadmium & DESTimes as submodule
+
+1. Git clone the repository using the cygwin terminal or git bash.
+
+   > git clone <repository link>
+
+2. run the command :
+
+   > git submodule init
+   >
+   > git submodule update
