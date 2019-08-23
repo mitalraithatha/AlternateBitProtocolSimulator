@@ -143,9 +143,9 @@ int main() {
      * with the input file path
      */
     std::shared_ptr<cadmium::dynamic::modeling::model> generator =
-            cadmium::dynamic::translate::make_dynamic_atomic_model<
-                    ApplicationGen, TIME, const char*>("generator",
-                    std::move(p_input_data));
+        cadmium::dynamic::translate::make_dynamic_atomic_model<
+            ApplicationGen, TIME, const char*>("generator",
+                std::move(p_input_data));
 
     /*
      * Here output data is being generated from the subnet.
@@ -153,8 +153,8 @@ int main() {
      */
 
     std::shared_ptr<cadmium::dynamic::modeling::model> subnet1 =
-            cadmium::dynamic::translate::make_dynamic_atomic_model<Subnet, TIME>(
-                    "subnet1");
+        cadmium::dynamic::translate::make_dynamic_atomic_model<Subnet, TIME>(
+            "subnet1");
 
 
     cadmium::dynamic::modeling::Ports iports_TOP = { };
