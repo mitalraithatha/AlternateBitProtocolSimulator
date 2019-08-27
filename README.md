@@ -135,9 +135,52 @@ The ABP Simulator consists of 3 components: sender, network and receiver :
 
 ## **Build code and run the test**
 
-### **1. - Run the unit tests**
+### 1.- Installation steps for Cadmium
 
-#### 1.1. Run subnet test	
+#### 1.1 Installing Cygwin and GCC 
+
+##### 1.1.1 apt-cyg INSTALLATION  :
+
+1. Open Cygwin in administrator mode and type the following commands 
+
+   > a) “wget rawgit.com/transcode-open/apt-cyg/master/apt-cyg” 
+   >
+   > b) “install apt-cyg /bin” "apt-cyg" in Cygwin is similar to "sudo apt-get" command in Linux. (Similar to Linux you can use this command to install packages, update, list them etc.)
+
+#### 1.2 INSTALLING CADMIUM DEPENDENCIES 
+
+##### 1.2.2 Installing Boost Library 
+
+1. Go to the location where you have downloaded the setup (.exe) file for Cygwin and open the Cygwin Terminal there. 
+
+2. Type **“./setup-x86_64.exe -q -P libboost-devel” (OR) Type “apt-cyg install libboost-devel”** 
+
+3. These steps install the boost library. 
+
+4. Download Cadmium & DESTimes Select a folder to store these files and your new projects. 
+
+5. Open Cygwin window inside this ‘folder’ location. 
+
+   > 1. Type “git clone https://github.com/SimulationEverywhere/cadmium” 
+   > 2. 2. Type “git clone https://github.com/Laouen/DESTimes.git” These steps download Cadmium and DESTimes.
+
+#### 1.3.- Download the Cadmium & DESTimes as submodule
+
+1. Git clone the repository using the cygwin terminal or git bash.
+
+   > git clone <repository link>
+
+2. run the command :
+
+   > git submodule init
+   >
+   > git submodule update
+
+
+
+### 2. - Run the unit tests
+
+#### 2.1. Run subnet test	
 
 1. Open the terminal. Press in your keyboard Ctrl+Alt+t
 
@@ -160,11 +203,11 @@ The ABP Simulator consists of 3 components: sender, network and receiver :
      - To check the formatted output of the test , open **"test/data/subnet/formatted_subnet_output"**
 
 
-#### 1.2. To run receiver and sender tests, the steps are analogous to 1.1, just select the appropriate path.
+#### 2.2. To run receiver and sender tests, the steps are analogous to 1.1, just select the appropriate path.
 
 -------------------------------
 
-### 2. - Run the Simulator
+### 3. - Run the Simulator
 
 
 1. Open the terminal. Press in your keyboard Ctrl+Alt+t
@@ -187,8 +230,8 @@ The ABP Simulator consists of 3 components: sender, network and receiver :
 
 5 - To check the unformatted output of the simulation, open  **"data/abp_output.txt"**
 
-	- To check the formatted output of the file, open **"data/formatted_output.txt"**
-	- To check the analytics output of the file , open **"data/average_output.txt"**
+	- To check the formatted output of the file, open "data/formatted_output.txt"
+	- To check the analytics output of the file , open "data/average_output.txt"
 
 6 - To execute the simulator with different inputs
 
@@ -198,46 +241,3 @@ The ABP Simulator consists of 3 components: sender, network and receiver :
    - 6.3. If you want to keep the output, rename abp_output.txt. To do so, type in the terminal: "mv abp_output.txt NEW_NAME"
 
      > Example: mv abp_output.txt abp_output_0.txt
-
-### 3.- Installation steps for Cadmium
-
-#### 3.1 Installing Cygwin and GCC 
-
-##### 3.1.1 apt-cyg INSTALLATION  :
-
-1. Open Cygwin in administrator mode and type the following commands 
-
-   > a) “wget rawgit.com/transcode-open/apt-cyg/master/apt-cyg” 
-   >
-   > b) “install apt-cyg /bin” "apt-cyg" in Cygwin is similar to "sudo apt-get" command in Linux. (Similar to Linux you can use this command to install packages, update, list them etc.)
-
-#### 3.2 INSTALLING CADMIUM DEPENDENCIES 
-
-##### 3.2.2 Installing Boost Library 
-
-1. Go to the location where you have downloaded the setup (.exe) file for Cygwin and open the Cygwin Terminal there. 
-
-2. Type **“./setup-x86_64.exe -q -P libboost-devel” (OR) Type “apt-cyg install libboost-devel”** 
-
-3. These steps install the boost library. 
-
-4. Download Cadmium & DESTimes Select a folder to store these files and your new projects. 
-
-5. Open Cygwin window inside this ‘folder’ location. 
-
-   > 1. Type “git clone https://github.com/SimulationEverywhere/cadmium” 
-   > 2. 2. Type “git clone https://github.com/Laouen/DESTimes.git” These steps download Cadmium and DESTimes.
-
-
-
-### 3.- Download the Cadmium & DESTimes as submodule
-
-1. Git clone the repository using the cygwin terminal or git bash.
-
-   > git clone <repository link>
-
-2. run the command :
-
-   > git submodule init
-   >
-   > git submodule update
